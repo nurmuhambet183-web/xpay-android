@@ -1,0 +1,32 @@
+
+name: Import Xpay ZIP
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract project
+        run: |
+          ZIP=$(find . -maxdepth 1 -name '*.zip' | head -n 1)
+          test -n "$ZIP"
+          mkdir unpack
+          unzip -q "$ZIP" -d unpack
+          cp -a unpack/xpay-android-ready/. .
+          rm -rf unpack "$ZIP"
+
+      - name: Save project
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Import Xpay Android project" || true
+          git push
+          
