@@ -1,0 +1,20 @@
+ВАЖНО: GitHub не распаковывает ZIP, загруженный в репозиторий. Если загрузить ZIP через Upload files, он останется обычным архивом и Actions не увидит исходники.
+
+Самый простой способ отправить весь проект с Android — Termux + GitHub CLI:
+1. Создай на github.com пустой репозиторий xpay-android (не добавляй README, License или .gitignore).
+2. Установи Termux из F-Droid или официального источника Termux.
+3. В Termux выполни:
+   termux-setup-storage
+   pkg update
+   pkg install git gh unzip
+4. Распакуй xpay-android-ready.zip в Download.
+5. Перейди в папку проекта. Обычно:
+   cd ~/storage/downloads/xpay-android-ready
+   Если папка распаковалась в другое место, укажи фактический путь.
+6. Запусти:
+   bash UPLOAD-TO-GITHUB-TERMUX.sh
+7. Следуй авторизации GitHub в браузере. Затем вставь HTTPS-ссылку своего пустого репозитория, например:
+   https://github.com/ТВОЙ-ЛОГИН/xpay-android.git
+8. После отправки открой репозиторий > Actions > Build APK.
+
+Не отправляй никому пароль или токен GitHub. Скрипт использует GitHub CLI для авторизации.
